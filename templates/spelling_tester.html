@@ -8,31 +8,19 @@
 </style>
 <body>
     <div class="container">
-        <h1>Hunt the Wumpus</h1>
+        <h1>Spelling Tester</h1>
         <div class="message">{{ message }}</div>
         <p>
         </p>
         {% if game.game_on %}
-        <form action="/wumpus" method="post">
-            <label for="move_direction">Enter room number to move:</label>
-            <select id="move_direction", name="move_direction">
-                <option></option>
-                {% for room in game.rooms %}
-                <option value="{{room}}">Room {{room}}</option>
-                {% endfor %}
-            </select>
-        <hr>
-            <label for="shoot_direction">Enter room number to shoot:</label>
-            <select id="shoot_direction", name="shoot_direction">
-                <option></option>
-                {% for room in game.rooms %}
-                <option value="{{room}}">Room {{room}}</option>
-                {% endfor %}
-            </select>
+        <form action="/spelling_tester" method="post">
+            <label for="guess">Correct this misspelled word:</label>
+            <input type ="text", id="guess" name="guess" required>
+
             <button type="submit">Submit</button>
         </form>
         {% else %}
-        <a href="/wumpus">New Game</a> 
+        <a href="/spelling_tester">New Game</a> 
         {% endif %}
     </div>
 </body>
