@@ -16,5 +16,13 @@ def wumpus():
         message = wumpus_game.new_game()
     return render_template('wumpus.html', message=message, game=wumpus_game)
 
+@app.route('/spelling_tester', methods=['POST', 'GET'])
+def spelling_tester():
+    if request.method == 'POST':
+        message = spelling_tester.play(request.form)
+    else:
+        message = spelling_tester.new_game()
+    return render_template('spelling_tester.html', message=message, game=spelling_tester)
+
 if __name__ == "__main__":
     app.run()
