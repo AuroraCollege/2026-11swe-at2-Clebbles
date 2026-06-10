@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    <h1>Spelling Test Results</h1>
+    <p>Here is how you went..</p>
+    <label>Score: {{score}} out of 10</label>
+    <br>
+    <p> Summary</p>
+    <form method = "POST">
+
+        <table>
+            <tr>
+                <td><strong>Word</strong></td>
+                <td><strong>Misspelled</strong></td>
+                <td><strong>Guess</strong></td>
+                <td><strong>Result</strong></td>
+            </tr>
+            {% for word_count in range(10) %}
+            <tr>
+                <td> {{correct_words[word_count]}}</td>
+                <td> {{misspelled_words[word_count]}}</td>
+                <td> {{guesses[word_count]}}</td>
+                <td> {{results[word_count]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <a href="/spelling_tester">
+            <button type="button">New Game</button>
+        </a>
+    </form>
+
+{% endblock %}

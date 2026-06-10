@@ -1,28 +1,26 @@
 {% extends 'layout.html' %}
 
-{% block body %} 
-<style>
-    td {
-        padding: 0.5rem;
-    }
-</style>
-<body>
-    <div class="container">
-        <h1>Spelling Tester</h1>
-        <div class="message">{{ message }}</div>
-        <p>
-        </p>
-        {% if game.game_on %}
-        <form action="/spelling_tester" method="post">
-            <label for="guess">Correct this misspelled word:</label>
-            <input type ="text", id="guess" name="guess" required>
+{% block body %}
 
-            <button type="submit">Submit</button>
-        </form>
-        {% else %}
-        <a href="/spelling_tester">New Game</a> 
-        {% endif %}
-    </div>
-</body>
+    <h1>Welcome to Spelling Tester</h1>
+    <p>Correct the 10 misspelled words</p>
+
+    <form action="/submit" method = "POST">
+
+        <table>
+            <tr>
+                <td><strong>Misspelled</strong></td>
+                <td><strong>Guess</strong></td>
+            </tr>
+            {% for word_count in range(10) %}
+            <tr>
+                <td><label>{{misspelled_words[word_count]}}</label></td>
+                <td><input type = "text" name="guesses[]"></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <button type="submit">Submit Guesses</button>
+    </form>
 
 {% endblock %}
