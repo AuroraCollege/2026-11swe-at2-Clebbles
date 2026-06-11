@@ -5,20 +5,23 @@ wumpus_game = HuntTheWumpus()
 
 app = Flask(__name__)
 
+'''Constants used to refer to elements of words list'''
 MISSPELLED = 1
 CORRECT = 0
 
+'''Accesses the words.txt file and enters the contents into the words list'''
 with open("words.txt", "r", encoding="utf-8") as file:
     words = [line.split() for line in file if line.strip()]
 
+'''Initialising lists'''
 spelling_list = [0] * 10
 misspelled_words = [0] * 10
 correct_words = [0] * 10
 results = [0] * 10
-#guesses = [0] * 10
 @app.route("/spelling_tester", methods=['POST', 'GET'])
 def spelling_tester():
 
+    '''Picks 10 random numbers that refers to words from words list and ensures no duplicates'''
     for word_num in range (10):
         num_used_already = True
         while num_used_already:
@@ -28,13 +31,15 @@ def spelling_tester():
                 if random_word_num == spelling_list[search_num]:
                     num_used_already = True
         spelling_list[word_num] = random_word_num
-
+    '''Splits the words list into 2 different lists with correct and incorrect spelling'''
     for word_num in range(10):
         misspelled_words[word_num] = words[spelling_list[word_num]][MISSPELLED]
         correct_words[word_num] = words[spelling_list[word_num]][CORRECT]
 
+    '''Sends misspelled words to webpage to be displayed'''
     return render_template("spelling_tester.html" , misspelled_words = misspelled_words)
 
+    '''Processes the users guesses'''
 @app.route("/submit", methods = ["POST"])
 def submit():
     score = 0
@@ -46,6 +51,7 @@ def submit():
         else:
             results[guess_pointer] = "Incorrect!"
 
+    '''Sends the results to results page'''
     return render_template(
         "results.html", 
         misspelled_words = misspelled_words ,
